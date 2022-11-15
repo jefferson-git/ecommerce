@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import br.com.ecommerce.model.Cidade;
 import br.com.ecommerce.model.Estado;
+import br.com.ecommerce.repository.CidadeRepository;
 import br.com.ecommerce.repository.EstadoRepository;
 import lombok.AllArgsConstructor;
 
@@ -16,11 +18,15 @@ import lombok.AllArgsConstructor;
 public class TestConfig {
 
 	private final EstadoRepository estadoRepository;
+	private final CidadeRepository cidadeRepository;
 	
 	@Bean 
 	public void CreateDados() {	
 	
 		Estado estado = new Estado(null, "Goiás", "GO", new Date(), null);
 		estadoRepository.save(estado);
-	}
+		
+		Cidade cidade = new Cidade(null, "Goiânia", new Date(), estadoRepository.findById(1).get());
+		cidadeRepository.save(cidade);
+	} 
 }
