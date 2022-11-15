@@ -9,6 +9,7 @@ import br.com.ecommerce.dto.EstadoDto;
 import br.com.ecommerce.model.Estado;
 import br.com.ecommerce.repository.EstadoRepository;
 import br.com.ecommerce.service.EstadoService;
+import br.com.ecommerce.service.exception.DataIntegrityViolationException;
 import br.com.ecommerce.service.exception.ObjectNotFoundException;
 import lombok.AllArgsConstructor;
 
@@ -21,7 +22,7 @@ public class EstadoServiceImpl implements EstadoService{
 
 	@Override
 	public Estado findById(Integer id) {
-		return repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Estado não encontrado, com id: "+id ));
+		return repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Estado não encontrado, com id:"+id ));
 	}
 
 	@Override
@@ -31,6 +32,14 @@ public class EstadoServiceImpl implements EstadoService{
 
 	@Override
 	public Estado create(EstadoDto dto) {
+		
+		if(dto.getSigla().length() <= 1 || dto.getSigla().length() > 2 )
+			throw new DataIntegrityViolationException("Sigla deve possuir duas letras!");
+
+		for (Estado estado : repository.findAll()) 
+			if(estado.getNome().equalsIgnoreCase(dto.getNome()))
+				throw new DataIntegrityViolationException("Estado já cadastrado!");
+		
 		return repository.save(model.mapper().map(dto, Estado.class));
 	}
 
