@@ -1,5 +1,6 @@
 package br.com.ecommerce.service.implement;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 				throw new DataIntegrityViolationException("Categoria já cadastrada com nome,"+dto.getNome());
 		
 		dto.setId(findById(id).getId());
+		dto.setDataAtualizacao(new Date());
 		return repository.save(model.mapper().map(dto, Categoria.class));
 	}
 
