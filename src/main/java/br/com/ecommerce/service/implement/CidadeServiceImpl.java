@@ -44,9 +44,10 @@ public class CidadeServiceImpl implements CidadeService{
 
 	@Override
 	public Cidade update(Integer id, CidadeDto dto) {
-		serviceEstado.findById(dto.getEstado().getId());	
 		dto.setId(id);
-		findById(id);		
+		var obj = findById(id);	
+		dto.setDataCriacao(obj.getDataCriacao());
+		serviceEstado.findById(dto.getEstado().getId());		
 		return repository.save(model.mapper().map(dto, Cidade.class));
 	}
  

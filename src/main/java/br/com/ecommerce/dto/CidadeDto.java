@@ -26,7 +26,7 @@ public class CidadeDto implements Serializable{
 	@NotBlank(message = "O nome é requerido!")
 	private String nome;
 	
-	private Date dataCriacao = new Date();
+	private Date dataCriacao;
 	
 	private Estado estado;
 }
