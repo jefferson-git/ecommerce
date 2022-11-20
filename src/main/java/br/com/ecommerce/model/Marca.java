@@ -33,11 +33,10 @@ public class Marca {
 	@Column(unique = true, nullable = false)
 	private String nome;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(unique = true)
 	private Date dataAtualizacao;
 }

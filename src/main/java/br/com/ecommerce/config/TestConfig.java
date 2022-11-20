@@ -1,5 +1,6 @@
 package br.com.ecommerce.config;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.context.annotation.Bean;
@@ -10,10 +11,12 @@ import br.com.ecommerce.model.Categoria;
 import br.com.ecommerce.model.Cidade;
 import br.com.ecommerce.model.Estado;
 import br.com.ecommerce.model.Marca;
+import br.com.ecommerce.model.MargemLucro;
 import br.com.ecommerce.repository.CategoriaRepository;
 import br.com.ecommerce.repository.CidadeRepository;
 import br.com.ecommerce.repository.EstadoRepository;
 import br.com.ecommerce.repository.MarcaRepository;
+import br.com.ecommerce.repository.MargemLucroRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -25,6 +28,7 @@ public class TestConfig {
 	private final CidadeRepository cidadeRepository;
 	private final CategoriaRepository categoriaRepository;
 	private final MarcaRepository marcaRepository;
+	private final MargemLucroRepository margemLucroRepository;
 	
 	@Bean 
 	public void CreateDados() {	
@@ -41,5 +45,7 @@ public class TestConfig {
 		Marca marca = new Marca(null, "ambev", new Date(), null);
 		marcaRepository.save(marca);
 		
+		MargemLucro lucro = new MargemLucro(null, (float) 12.5, "produto importado", new Date(), null);
+		margemLucroRepository.save(lucro);
 	} 
 }

@@ -27,7 +27,7 @@ import lombok.Setter;
 public class Categoria {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
 	
@@ -38,10 +38,9 @@ public class Categoria {
 	private String descricao;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Date dataCriacao;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(unique = true)
 	private Date dataAtualizacao;
 }
