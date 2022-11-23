@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,22 +22,21 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cidade")
+@Table(name = "marca")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cidade {
+public class Marca {
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(unique = true, nullable = false)
 	private String nome;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
 	
-	@ManyToOne
-	private Estado estado;
+	@Temporal(TemporalType.DATE)
+	private Date dataAtualizacao;
 }

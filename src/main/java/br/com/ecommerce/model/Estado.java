@@ -38,10 +38,9 @@ public class Estado{
 	private String sigla;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private Date dataCriacao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(unique = true)
 	private Date dataAtualizacao;
 }
