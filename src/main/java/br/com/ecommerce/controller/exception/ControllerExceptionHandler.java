@@ -67,6 +67,13 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<StandardError> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex){
+		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.METHOD_NOT_ALLOWED.value(),
+				"insira o identificador na URL", urlDocumentation);
+		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(erro);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> MethodArgumentNotValidException(MethodArgumentNotValidException ex){
 		ValidationError errors = new ValidationError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),

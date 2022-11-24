@@ -3,9 +3,6 @@ package br.com.ecommerce.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -19,7 +16,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @SuppressWarnings("serial")
@@ -49,7 +45,5 @@ public class EnderecoDto implements Serializable{
 	
 	private Date dataAtualizacao;
 	
-	@ManyToOne
-	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 }
