@@ -12,36 +12,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.ecommerce.dto.MarcaDto;
+import br.com.ecommerce.dto.ImpostoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-public interface MarcaController {
+
+public interface ImpostoController {
 
 	@GetMapping("/{id}")
-	@Operation(summary = "Retorna Marca correspondente ao identificador recuperado por parametro")
+	@Operation(summary = "Retorna Imposto correspondente ao identificador recuperado por parametro")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json"))})
-	ResponseEntity<MarcaDto> findById(@PathVariable Long id);
+	ResponseEntity<ImpostoDto> findById(@PathVariable Integer id);
 
 	@GetMapping
-	@Operation(summary = "Retorna Marca em paginação a cada dez")
+	@Operation(summary = "Retorna Imposto em paginação a cada dez")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json"))})
-	ResponseEntity<List<MarcaDto>> findAll();
+	ResponseEntity<List<ImpostoDto>> findAll();
 
 	@PostMapping
-	@Operation(summary = "Método responsável por criar Marca")
+	@Operation(summary = "Método responsável por criar Imposto")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "devolvera no headers do request o caminho de acesso")})
-	ResponseEntity<MarcaDto> create(@Valid @RequestBody MarcaDto dto);
+	ResponseEntity<ImpostoDto> create(@Valid @RequestBody ImpostoDto dto);
 	
 	@PutMapping("/{id}")
-	@Operation(summary = "Método responsável por alterar Marca")
+	@Operation(summary = "Método responsável por alterar Imposto")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json"))})
-	ResponseEntity<MarcaDto> update(@PathVariable Long id, @Valid @RequestBody MarcaDto dto);
+	ResponseEntity<ImpostoDto> update(@PathVariable Integer id,@Valid @RequestBody ImpostoDto dto);
 
 	@DeleteMapping("/{id}")
-	@Operation(summary = "Método responsável por excluir Marca pelo id")
+	@Operation(summary = "Método responsável por excluir Imposto pelo id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Não retorna nada!")})
-	ResponseEntity<Void> delete(@PathVariable Long id);
+	ResponseEntity<Void> delete(@PathVariable Integer id);
 }
