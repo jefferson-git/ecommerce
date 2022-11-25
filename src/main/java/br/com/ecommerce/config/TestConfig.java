@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 import br.com.ecommerce.model.Categoria;
 import br.com.ecommerce.model.Cidade;
+import br.com.ecommerce.model.Desconto;
 import br.com.ecommerce.model.Endereco;
 import br.com.ecommerce.model.Estado;
 import br.com.ecommerce.model.Imposto;
@@ -16,6 +17,7 @@ import br.com.ecommerce.model.MargemLucro;
 import br.com.ecommerce.model.UnidadeMedida;
 import br.com.ecommerce.repository.CategoriaRepository;
 import br.com.ecommerce.repository.CidadeRepository;
+import br.com.ecommerce.repository.DescontoRepository;
 import br.com.ecommerce.repository.EnderecoRepository;
 import br.com.ecommerce.repository.EstadoRepository;
 import br.com.ecommerce.repository.ImpostoRepository;
@@ -37,6 +39,7 @@ public class TestConfig {
 	private final ImpostoRepository impostoRepository;
 	private final EnderecoRepository enderecoRepository;
 	private final UnidadeMedidaRepository medidaRepository;
+	private final DescontoRepository descontoRepository;
 	
 	@Bean 
 	public void CreateDados() {	
@@ -64,6 +67,8 @@ public class TestConfig {
 		
 		UnidadeMedida medida = new UnidadeMedida(null, "CX2", "CAIXA COM 2 UNIDADES", new Date(), null);
 		medidaRepository.save(medida);
-	
+		
+		Desconto desconto = new Desconto(null, (float) 15.5, "cliente com cupom", new Date(), null);
+		descontoRepository.save(desconto);	
 	} 
 }
