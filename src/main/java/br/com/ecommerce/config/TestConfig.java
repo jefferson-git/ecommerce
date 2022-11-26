@@ -11,6 +11,7 @@ import br.com.ecommerce.model.Cidade;
 import br.com.ecommerce.model.Desconto;
 import br.com.ecommerce.model.Endereco;
 import br.com.ecommerce.model.Estado;
+import br.com.ecommerce.model.FormaPagamento;
 import br.com.ecommerce.model.Imposto;
 import br.com.ecommerce.model.Marca;
 import br.com.ecommerce.model.MargemLucro;
@@ -20,6 +21,7 @@ import br.com.ecommerce.repository.CidadeRepository;
 import br.com.ecommerce.repository.DescontoRepository;
 import br.com.ecommerce.repository.EnderecoRepository;
 import br.com.ecommerce.repository.EstadoRepository;
+import br.com.ecommerce.repository.FormaPagamentoRepository;
 import br.com.ecommerce.repository.ImpostoRepository;
 import br.com.ecommerce.repository.MarcaRepository;
 import br.com.ecommerce.repository.MargemLucroRepository;
@@ -40,6 +42,7 @@ public class TestConfig {
 	private final EnderecoRepository enderecoRepository;
 	private final UnidadeMedidaRepository medidaRepository;
 	private final DescontoRepository descontoRepository;
+	private final FormaPagamentoRepository formaPagamentoRepository;
 	
 	@Bean 
 	public void CreateDados() {	
@@ -70,5 +73,8 @@ public class TestConfig {
 		
 		Desconto desconto = new Desconto(null, (float) 15.5, "cliente com cupom", new Date(), null);
 		descontoRepository.save(desconto);	
+		
+		FormaPagamento pagamento = new FormaPagamento(null, "boleto", "pagamento atraves de boleto bancario", new Date(), null);
+		formaPagamentoRepository.save(pagamento);
 	} 
 }

@@ -12,6 +12,8 @@ public class DevConfig {
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String ddl;
 	
+	
+	
 	@Bean
 	void createDados() {	 
 				

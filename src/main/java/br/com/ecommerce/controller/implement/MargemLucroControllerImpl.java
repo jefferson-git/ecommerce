@@ -19,8 +19,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/margem-lucros")
 public class MargemLucroControllerImpl implements MargemLucroController{
 
-	private MargemLucroServiceImpl service;
-	private ModelMapperConfig model;
+	private final MargemLucroServiceImpl service;
+	private final ModelMapperConfig model;
 	
 	@Override
 	public ResponseEntity<MargemLucroDto> findById(Integer id) {
