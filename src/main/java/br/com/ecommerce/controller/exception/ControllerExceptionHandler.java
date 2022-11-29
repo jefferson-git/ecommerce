@@ -57,14 +57,14 @@ public class ControllerExceptionHandler {
 	
 	@ExceptionHandler(Menssage.class)
 	public ResponseEntity<StandardError> Menssage(Menssage ex){
-		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), urlDocumentation);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+		StandardError erro = new StandardError(System.currentTimeMillis(), null, ex.getMessage(), urlDocumentation);
+		return ResponseEntity.status(200).body(erro);
 	}
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<StandardError> HttpMessageNotReadableException(HttpMessageNotReadableException ex){
 		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), urlDocumentation);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro); 
 	}
 	
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)

@@ -1,5 +1,6 @@
 package br.com.ecommerce.config;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.context.annotation.Bean;
@@ -12,9 +13,11 @@ import br.com.ecommerce.model.Desconto;
 import br.com.ecommerce.model.Endereco;
 import br.com.ecommerce.model.Estado;
 import br.com.ecommerce.model.FormaPagamento;
+import br.com.ecommerce.model.HistoricoCustoProduto;
 import br.com.ecommerce.model.Imposto;
 import br.com.ecommerce.model.Marca;
 import br.com.ecommerce.model.MargemLucro;
+import br.com.ecommerce.model.Produto;
 import br.com.ecommerce.model.UnidadeMedida;
 import br.com.ecommerce.repository.CategoriaRepository;
 import br.com.ecommerce.repository.CidadeRepository;
@@ -22,9 +25,11 @@ import br.com.ecommerce.repository.DescontoRepository;
 import br.com.ecommerce.repository.EnderecoRepository;
 import br.com.ecommerce.repository.EstadoRepository;
 import br.com.ecommerce.repository.FormaPagamentoRepository;
+import br.com.ecommerce.repository.HistoricoCustoProdutoRepository;
 import br.com.ecommerce.repository.ImpostoRepository;
 import br.com.ecommerce.repository.MarcaRepository;
 import br.com.ecommerce.repository.MargemLucroRepository;
+import br.com.ecommerce.repository.ProdutoRepository;
 import br.com.ecommerce.repository.UnidadeMedidaRepository;
 import lombok.AllArgsConstructor;
 
@@ -43,6 +48,8 @@ public class TestConfig {
 	private final UnidadeMedidaRepository medidaRepository;
 	private final DescontoRepository descontoRepository;
 	private final FormaPagamentoRepository formaPagamentoRepository;
+	private final ProdutoRepository produtoRepository;
+	private final HistoricoCustoProdutoRepository historicoCustoProdutoRepository;
 	
 	@Bean 
 	public void CreateDados() {	
@@ -76,5 +83,11 @@ public class TestConfig {
 		
 		FormaPagamento pagamento = new FormaPagamento(null, "boleto", "pagamento atraves de boleto bancario", new Date(), null);
 		formaPagamentoRepository.save(pagamento);
+		
+		Produto produto = new Produto(null, "coca cola 2l", "7894900011517", 300, null, BigDecimal.valueOf(7.45) , BigDecimal.valueOf(9.50), null, "coca cola de 2 lt", new Date(), null, desconto, lucro, categoria, imposto, medida, marca);
+		var produtoRecuperado =  produtoRepository.save(produto);
+		
+		HistoricoCustoProduto historicoCustoProduto = new HistoricoCustoProduto(null, produtoRecuperado.getPrecoCusto(), produtoRecuperado.getNome(), produtoRecuperado.getCodigo(), new Date(), produtoRecuperado);
+		historicoCustoProdutoRepository.save(historicoCustoProduto);
 	} 
 }
