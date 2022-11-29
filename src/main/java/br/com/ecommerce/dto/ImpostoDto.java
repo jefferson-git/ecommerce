@@ -24,7 +24,7 @@ public class ImpostoDto implements Serializable{
 	@JsonIgnore
 	private Integer id;
 	
-	@DecimalMin(value = "0.0", inclusive = false)
+	@DecimalMin(value = "0.0", inclusive = false, message = "O campo porcentagem deve ser zero ou superior!")
 	@Digits(integer = 3, fraction = 1, message = "Dois digítos antes do ponto e apenas uma casas após o ponto.")
 	private Float porcentagem;
 	

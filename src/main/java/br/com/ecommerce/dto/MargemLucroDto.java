@@ -3,6 +3,7 @@ package br.com.ecommerce.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,7 @@ public class MargemLucroDto implements Serializable{
 	@JsonIgnore
 	private Integer id;
 	
+	@DecimalMin(value = "0.0", inclusive = false, message = "O campo porcentagem deve ser zero ou superior!")
 	@Digits(integer = 3, fraction = 1, message = "Dois digítos antes do ponto e apenas uma casas após o ponto.")
 	private Float valor;
 	
