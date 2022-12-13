@@ -1,5 +1,6 @@
 package br.com.ecommerce.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,39 +22,36 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
+@Valid
 @AllArgsConstructor
-@Table(name = "estoque")
+@NoArgsConstructor
+@Table(name = "compra")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Estoque {
-
+public class Compra {
+	
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	
 	@Column(nullable = false)
 	private String nomeProduto;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
+	private Integer quantidade;
+	
+	@Column(nullable = false)
+	private BigDecimal valorUnitario;
+	
+	@Column(nullable = false)
 	private String codigoProduto;
 	
-	@Column(nullable = false)
-	private Integer quantidadePorCompra = 0;
-	
-	@Column(nullable = false)
-	private Integer quantidadeTotalEmEstoque =  0;
-	
-	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date DataDeEntrada;
+	private Date dataDaCompra;
 	
-	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date DataDeFabricacao;
+	private Date dataDeFabricacao;
 	
-	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date DataDeVencimento;
-
+	private Date dataDeValidade;
+	
 }

@@ -1,9 +1,13 @@
 package br.com.ecommerce.controller.implement;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,7 +20,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/descontos")
+@RequestMapping("api/descontos")
 public class DescontoControllerImpl implements DescontoController{
 
 	private final DescontoServiceImpl service;
@@ -24,10 +28,13 @@ public class DescontoControllerImpl implements DescontoController{
 	
 	@Override
 	public ResponseEntity<DescontoDto> findById(Integer id) {
-		return ResponseEntity.ok().body(model.mapper().map(service.findById(id), DescontoDto.class));
+		
+		return ResponseEntity.ok().body(model.mapper().map(service.findById(id), DescontoDto.class)
+				.add(linkTo(methodOn(DescontoControllerImpl.class).findById(id)).withRel("Lista-descontos")));
 	}
 
-	@Override
+	@Override 
+	@GetMapping()
 	public ResponseEntity<List<DescontoDto>> findAll() {
 		return ResponseEntity.ok().body(service.findAll().stream()
 				.map( obj -> model.mapper().map(obj, DescontoDto.class)).collect(Collectors.toList()));

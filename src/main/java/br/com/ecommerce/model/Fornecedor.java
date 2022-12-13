@@ -20,39 +20,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "estoque")
+@NoArgsConstructor
+@Table(name = "fornecedor")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Estoque {
+public class Fornecedor {
 
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Column(nullable = false)
-	private String nomeProduto;
+	private Integer id;
 	
 	@Column(nullable = false, unique = true)
-	private String codigoProduto;
+	private String nome;
 	
-	@Column(nullable = false)
-	private Integer quantidadePorCompra = 0;
+	@Column(nullable = false, unique = true)
+	private String cnpj;
 	
-	@Column(nullable = false)
-	private Integer quantidadeTotalEmEstoque =  0;
-	
-	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date DataDeEntrada;
-	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date DataDeFabricacao;
-	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date DataDeVencimento;
-
+	private Date dataCadastro;
 }

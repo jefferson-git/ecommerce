@@ -3,12 +3,12 @@ package br.com.ecommerce.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.ecommerce.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,21 +24,22 @@ public class EstoqueDto implements Serializable{
 	@JsonIgnore
 	private Long id;
 	
-	@NotBlank(message =  "O campo quantidade é requerido!")
-	@Size(min = 0, message = "A quantidade não pode ser negativa!")
-	private Long quantidadeEntrada;
+	@NotBlank(message =  "O campo código produto em estoque é requerido!")
+	private String nomeProduto;
 	
-	@Size(min = 0, message = "A quantidade total não pode ser negativa!")
-	private Long quantidadeTotal;
+	@NotBlank(message =  "O campo código produto em estoque é requerido!")
+	private String codigoProduto;
 	
-	@NotBlank(message =  "O campo data de entrada é requerido!")
-	private Date DataDeEtrada;
+	@Min(value = 1, message = "A quantidade da compra mínima deve ser, {value}. Você digitou: " + "${validatedValue}.")
+	private Integer quantidadePorCompra = 0;
 	
-	@NotBlank(message =  "O campo data de fabricação é requerido!")
+	private Integer quantidadeTotalEmEstoque = 0;
+	
+	private Date DataDeEntrada;
+	
+	@NotNull(message =  "O campo data de fabricação é requerido!")
 	private Date DataDeFabricacao;
 	
-	@NotBlank(message =  "O campo data de vencimento é requerido!")
-	private Date DataDaVencimento;
-	
-	private Produto produto;
+	@NotNull(message =  "O campo data de vencimento é requerido!")
+	private Date DataDeVencimento;
 }
