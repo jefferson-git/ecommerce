@@ -41,9 +41,6 @@ public class Produto {
 	@Column(nullable = false, unique = true)
 	private String codigo;
 	
-	@Column(nullable = false)
-	private Integer quantidade;
-	
 	private String imagem;
 		
 	@Column(nullable = false, precision = 10, scale = 2)
@@ -60,6 +57,14 @@ public class Produto {
 	@Column(nullable = false)
 	private String descricao;
 
+	@Temporal(TemporalType.DATE)	
+	@Column(nullable = true)
+	private Date dataFabricacao;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date dataValidade;
+		
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date dataCadastro;

@@ -8,13 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -46,9 +42,6 @@ public class HistoricoCustoProduto{
 	private String codigoProduto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date Data;
+	private Date DataDoHistorico;
 	
-	@OneToOne()
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Produto produto;
 }

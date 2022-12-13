@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.ecommerce.config.ModelMapperConfig;
 import br.com.ecommerce.dto.ProdutoDto;
-import br.com.ecommerce.model.HistoricoCustoProduto;
 import br.com.ecommerce.model.Produto;
 import br.com.ecommerce.repository.ProdutoRepository;
 import br.com.ecommerce.service.ProdutoService;
@@ -22,24 +21,23 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProdutoServiceImpl implements ProdutoService{
 
-	private final ProdutoRepository produtoRepository;
-	private final HistoricoCustoProdutoServiceImpl historicoCustoProdutoServiceImpl;
+	private final ProdutoRepository repository;
 	private final ModelMapperConfig model;
 	
 	@Override
 	public Produto findById(Long id) {
-		return produtoRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado com o id:" + id));
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado com o id:" + id));
 	}
 
 	@Override
 	public Page<Produto> findAll(Pageable pageable) {
-		return produtoRepository.findAll(pageable);
+		return repository.findAll(pageable);
 	}
 
 	@Override
 	public Produto create(ProdutoDto dto) {
 		
-		for (Produto produto : produtoRepository.findAll()) {
+		for (Produto produto : repository.findAll()) {
 			if(produto.getNome().equalsIgnoreCase(dto.getNome()))
 				throw new DataIntegrityViolationException("Produto já cadastrado com esse nome!");
 			
@@ -51,9 +49,7 @@ public class ProdutoServiceImpl implements ProdutoService{
 		}
 	
 		dto.setDataCadastro(new Date());
-		var produto = produtoRepository.save(model.mapper().map(dto, Produto.class));
-		historicoCustoProdutoServiceImpl.create(produto, new HistoricoCustoProduto());
-		return produto;
+		return repository.save(model.mapper().map(dto, Produto.class));
 	}
 
 	@Override
@@ -64,7 +60,7 @@ public class ProdutoServiceImpl implements ProdutoService{
 		dto.setDataAtualizacao(new Date());
 		dto.setDataCadastro(produtoRecuperado.getDataCadastro());
 		
-		for (Produto prod : produtoRepository.findAll()) {
+		for (Produto prod : repository.findAll()) {
 			if(prod.getNome().equals(dto.getNome()) && id != prod.getId())
 				throw new DataIntegrityViolationException("Produto já cadastrado com esse nome!");
 			
@@ -72,21 +68,19 @@ public class ProdutoServiceImpl implements ProdutoService{
 				throw new DataIntegrityViolationException("Código de barras vinculado a outro produto!");
 		}
 		
-		var produto = produtoRepository.save(model.mapper().map(dto, Produto.class));
-		historicoCustoProdutoServiceImpl.create(produto, new HistoricoCustoProduto());
-		return produto;
+		return repository.save(model.mapper().map(dto, Produto.class));
 	}
 
 	@Override
 	public void delete(Long id) {
-		produtoRepository.delete(findById(id));
+		repository.delete(findById(id));
 	}
 
 	@Override
 	public List<Produto> findByNomeProduto(String nome) {
 		
-		var produtos = produtoRepository.findByNome(nome);		
-		if(produtos.size() == 0)
+		var produtos = repository.findByNome(nome);		
+		if(produtos.isEmpty())
 			throw new Menssage("Não há produto cadastrado com esse nome : "+ nome);
 		
 		return produtos;
@@ -95,8 +89,8 @@ public class ProdutoServiceImpl implements ProdutoService{
 	@Override
 	public List<Produto> findByNomeProdutoContaining(String nome) {
 
-		var produtos = produtoRepository.findByNomeContaining(nome);		
-		if(produtos.size() == 0)
+		var produtos = repository.findByNomeContaining(nome);		
+		if(produtos.isEmpty())
 			throw new Menssage("Não há produto cadastrado que contenha essa : "+ nome);
 		
 		return produtos;
@@ -105,8 +99,8 @@ public class ProdutoServiceImpl implements ProdutoService{
 	@Override
 	public List<Produto> findByCodigoProduto(String codigo) {
 		
-		var produtos = produtoRepository.findByCodigo(codigo);		
-		if(produtos.size() == 0)
+		var produtos = repository.findByCodigo(codigo);		
+		if(produtos.isEmpty())
 			throw new Menssage("Não há produto cadastrado com esse código : "+ codigo);
 		
 		return produtos;

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -26,6 +26,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Valid
 @AllArgsConstructor
 @NoArgsConstructor
 @SuppressWarnings("serial")
@@ -40,9 +41,6 @@ public class ProdutoDto implements Serializable{
 	
 	@NotBlank(message = "O campo codigo é requerido")
 	private String codigo;
-
-	@Min( value = 0, message = "A quantidade deve ser zero ou  superior")
-	private Integer quantidade;
 	
 	private String imagem;
 		
@@ -60,6 +58,10 @@ public class ProdutoDto implements Serializable{
 	
 	@NotBlank(message = "O campo descrição é requerido")
 	private String descricao;
+	
+	private Date dataFabricacao;
+	
+	private Date dataValidade;
 
 	private Date dataCadastro;
 	

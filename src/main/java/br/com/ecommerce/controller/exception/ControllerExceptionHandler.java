@@ -49,6 +49,12 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<StandardError> IntegrityConstraintViolationException(HttpMessageNotReadableException ex){
+		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "esprerado um inteiro, e não um caracter", urlDocumentation);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
 	@ExceptionHandler(BindException.class)
 	public ResponseEntity<StandardError> BindException(BindException ex){
 		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), urlDocumentation);
@@ -59,12 +65,6 @@ public class ControllerExceptionHandler {
 	public ResponseEntity<StandardError> Menssage(Menssage ex){
 		StandardError erro = new StandardError(System.currentTimeMillis(), null, ex.getMessage(), urlDocumentation);
 		return ResponseEntity.status(200).body(erro);
-	}
-	
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<StandardError> HttpMessageNotReadableException(HttpMessageNotReadableException ex){
-		StandardError erro = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), urlDocumentation);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro); 
 	}
 	
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)

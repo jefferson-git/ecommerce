@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuppressWarnings("serial")
-public class DescontoDto implements Serializable{
+public class DescontoDto extends RepresentationModel<DescontoDto> implements Serializable{
 
 	@JsonIgnore
 	private Integer id;

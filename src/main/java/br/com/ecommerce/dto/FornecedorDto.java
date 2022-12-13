@@ -1,31 +1,31 @@
 package br.com.ecommerce.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuppressWarnings("serial")
-public class HistoricoCustoProdutoDto implements Serializable{
+public class FornecedorDto implements Serializable{
 
 	@JsonIgnore
-	private Long id;
+	private Integer id;
 	
-	private BigDecimal precoCusto;
+	@NotBlank(message = "O campo nome é requerido!")
+	private String nome;
 	
-	private String nomeProduto;
+	@NotBlank(message = "O campo cnpj é requerido!")
+	private String cnpj;
 	
-	private String codigoProduto;
-	
-	private Date DataDoHistorico;
+	private Date dataCadastro;
 }
